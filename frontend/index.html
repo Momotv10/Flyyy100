@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAMS | Aero Intelligence Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --enterprise-navy: #002366;
+            --enterprise-bg: #F4F7FA;
+            --enterprise-gold: #C5A059;
+            --enterprise-orange: #F59E0B;
+            --enterprise-border: #E2E8F0;
+        }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--enterprise-bg);
+            color: var(--enterprise-navy);
+            overflow-x: hidden;
+        }
+        
+        .enterprise-card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            border: 1px solid var(--enterprise-border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+        }
+        
+        .enterprise-input {
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .enterprise-input:focus {
+            border-color: var(--enterprise-navy);
+            box-shadow: 0 0 0 2px rgba(0, 35, 102, 0.1);
+            outline: none;
+        }
+
+        .sidebar-item-active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-right: 4px solid var(--enterprise-orange);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 10px;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/client": "https://esm.sh/react-dom@^19.2.3/client",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.460.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@nestjs/common": "https://esm.sh/@nestjs/common@^11.1.11",
+    "bcrypt": "https://esm.sh/bcrypt@^6.0.0",
+    "@nestjs/jwt": "https://esm.sh/@nestjs/jwt@^11.0.2",
+    "@prisma/client": "https://esm.sh/@prisma/client@^7.2.0",
+    "@nestjs/core": "https://esm.sh/@nestjs/core@^11.1.11",
+    "axios": "https://esm.sh/axios@^1.13.2",
+    "form-data": "https://esm.sh/form-data@^4.0.5",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "@tanstack/react-query": "https://esm.sh/@tanstack/react-query@^5.90.16",
+    "@nestjs/passport": "https://esm.sh/@nestjs/passport@^11.0.5",
+    "framer-motion": "https://esm.sh/framer-motion@^12.24.7",
+    "buffer": "https://esm.sh/buffer@^6.0.3",
+    "express-rate-limit": "https://esm.sh/express-rate-limit@^8.2.1",
+    "helmet": "https://esm.sh/helmet@^8.1.0",
+    "socket.io": "https://esm.sh/socket.io@^4.8.3",
+    "@nestjs/swagger": "https://esm.sh/@nestjs/swagger@^11.2.4",
+    "@nestjs/websockets": "https://esm.sh/@nestjs/websockets@^11.1.11"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+
+version: '3.8'
+
+services:
+  # 1. قاعدة البيانات المركزية (PostgreSQL)
+  db:
+    image: postgres:15-alpine
+    container_name: stams_db
+    restart: always
+    environment:
+      POSTGRES_USER: stams_admin
+      POSTGRES_PASSWORD: Admin_Password_2024
+      POSTGRES_DB: stams_enterprise
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. محرك الكاش السريع (Redis)
+  redis:
+    image: redis:7-alpine
+    container_name: stams_cache
+    restart: always
+    ports:
+      - "6379:6379"
+
+  # 3. محرك الباك-أند (NestJS)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: stams_backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://stams_admin:Admin_Password_2024@db:5432/stams_enterprise?schema=public"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: "STAMS_SUPER_SECURE_JWT_KEY_PRO_2025"
+      AI_SERVICE_URL: "http://ai-service:8000"
+      WA_PHONE_NUMBER_ID: "${WA_PHONE_ID}"
+      WA_ACCESS_TOKEN: "${WA_TOKEN}"
+    depends_on:
+      - db
+      - redis
+
+  # 4. محرك الذكاء الاصطناعي (Python FastAPI)
+  ai-service:
+    build:
+      context: ./ai-service
+    container_name: stams_ai
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${API_KEY}
+      - PORT=8000
+
+  # 5. الواجهة الأمامية (Next.js 14)
+  frontend:
+    build:
+      context: ./frontend
+    container_name: stams_frontend
+    restart: always
+    ports:
+      - "3001:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: "http://localhost:3000/api/v1"
+      NEXT_PUBLIC_AI_URL: "http://localhost:8000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

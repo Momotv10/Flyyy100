@@ -1,0 +1,34 @@
+{
+  "services": [
+    {
+      "name": "frontend",
+      "directory": "frontend",
+      "build": {
+        "type": "docker"
+      }
+    },
+    {
+      "name": "backend",
+      "directory": "backend",
+      "build": {
+        "type": "docker"
+      },
+      "env": {
+        "DATABASE_URL": "${POSTGRES_URL}",
+        "JWT_SECRET": "STAMS_SUPER_SECURE_JWT_KEY_PRO_2025",
+        "AI_SERVICE_URL": "http://ai-service:8000"
+      }
+    },
+    {
+      "name": "ai-service",
+      "directory": "ai-service",
+      "build": {
+        "type": "docker"
+      },
+      "env": {
+        "GEMINI_API_KEY": "${GEMINI_API_KEY}",
+        "PORT": "8000"
+      }
+    }
+  ]
+}
