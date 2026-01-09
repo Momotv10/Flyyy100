@@ -46,7 +46,7 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
-  console.log(`🚀 STAMS Enterprise Engine is live on: https://flyyy100.zeabur.internal:${port}`);
+  console.log(`🚀 STAMS Enterprise Engine is live on: http://localhost:${port}`);
   console.log(`📝 API Documentation available at: http://localhost:${port}/api/docs`);
 }
 bootstrap();
