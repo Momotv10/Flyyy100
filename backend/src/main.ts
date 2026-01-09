@@ -1,4 +1,3 @@
-
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -8,7 +7,7 @@ import rateLimit from 'express-rate-limit';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  
   // 1. الحماية (Security Hardening)
   app.use(helmet()); // حماية HTTP Headers
   app.enableCors({
@@ -16,7 +15,7 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
-
+  
   // 2. منع هجمات DDoS (Rate Limiting)
   app.use(
     rateLimit({
@@ -25,28 +24,35 @@ async function bootstrap() {
       message: 'تم تجاوز الحد المسموح من الطلبات، يرجى المحاولة لاحقاً.',
     }),
   );
-
+  
   // 3. التحقق من صحة البيانات (Global Validation)
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    forbidNonWhitelisted: true,
-    transform: true,
-  }));
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
+  
   // 4. توثيق الـ API (Swagger UI)
   const config = new DocumentBuilder()
     .setTitle('STAMS Aero Intelligence API')
-    .setDescription('التوثيق الرسمي لمنظومة الربط التشغيلي الموحد لقطاع الطيران - إصدار المؤسسات')
+    .setDescription(
+      'التوثيق الرسمي لمنظومة الربط التشغيلي الموحد لقطاع الطيران - إصدار المؤسسات',
+    )
     .setVersion('2.5.0')
     .addBearerAuth()
     .build();
   
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
-
+  
+  // 5. تشغيل السيرفر (مهم لـ Zeabur)
   const port = process.env.PORT || 3000;
-  await app.listen(port);
-  console.log(`🚀 STAMS Enterprise Engine is live on: https://flyyy100.zeabur.internal:${port}`);
-  console.log(`📝 API Documentation available at: http://localhost:${port}/api/docs`);
+  await app.listen(port, '0.0.0.0');
+  
+  console.log(`🚀 STAMS Enterprise Engine is live on port ${port}`);
+  console.log(`📝 API Documentation available at /api/docs`);
 }
+
 bootstrap();
